@@ -13,20 +13,13 @@ public class Musica {
     private Musica proximo;
     private Musica anterior;
 
+    //getters e setters
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getArtista() {
         return artista;
-    }
-
-    public void setArtista(String artista) {
-        this.artista = artista;
     }
 
     public LocalDate getDataInclusao() {
@@ -35,10 +28,6 @@ public class Musica {
 
     public int getDuracao() {
         return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
     }
 
     public Musica getProximo() {
@@ -57,6 +46,26 @@ public class Musica {
         this.anterior = anterior;
     }
     
+    //outros métodos
+    public Musica(String titulo, String artista, int duracao) {
+        this.titulo = titulo;
+        this.artista = artista;
+        this.duracao = duracao;
+        this.dataInclusao = LocalDate.now();
+        this.proximo = null;
+        this.anterior = null;
+    }
     
+    public void corrigirTitulo() {
+        
+    }
+    
+    public void corrigirArtista() {
+        
+    }
+    
+    public void corrigirDuracao() {
+        
+    }
     
 }

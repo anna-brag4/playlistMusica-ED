@@ -3,6 +3,9 @@ package com.mycompany.playlistmusica.ed;
 import java.time.LocalDate;
 
 public class Musica {
+    
+    // vai funcionar como o nó da lista duplamente encadeada
+    
     private String titulo;
     private String artista;
     private LocalDate dataInclusao;

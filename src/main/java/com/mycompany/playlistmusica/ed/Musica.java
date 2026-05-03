@@ -10,10 +10,11 @@ public class Musica {
     private String artista;
     private LocalDate dataInclusao;
     private int duracao;
+    private String caminhoArquivo;
     private Musica proximo;
     private Musica anterior;
 
-    //getters e setters
+    //getters
     public String getTitulo() {
         return titulo;
     }
@@ -33,20 +34,29 @@ public class Musica {
     public Musica getProximo() {
         return proximo;
     }
-
-    public void setProximo(Musica proximo) {
-        this.proximo = proximo;
-    }
-
+    
     public Musica getAnterior() {
         return anterior;
+    }
+
+    public String getCaminhoArquivo() {
+        return caminhoArquivo;
+    }
+
+    //setters
+    public void setCaminhoArquivo(String caminhoArquivo) {
+        this.caminhoArquivo = caminhoArquivo;
+    }
+    
+    public void setProximo(Musica proximo) {
+        this.proximo = proximo;
     }
 
     public void setAnterior(Musica anterior) {
         this.anterior = anterior;
     }
     
-    //outros métodos
+    //construtor
     public Musica(String titulo, String artista, int duracao) {
         this.titulo = titulo;
         this.artista = artista;
@@ -56,6 +66,7 @@ public class Musica {
         this.anterior = null;
     }
     
+    //métodos de correção
     public void corrigirTitulo() {
         
     }

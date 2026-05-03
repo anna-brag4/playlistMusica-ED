@@ -9,7 +9,7 @@ public class Playlist {
     private Musica primeiro;
     private Musica ultimo;
 
-    //getters e setters
+    //getters
     public int getTamanho() {
         return tamanho;
     }
@@ -26,15 +26,15 @@ public class Playlist {
         return ultimo;
     }
     
-    //Outros métodos
+    //construtor
     public Playlist() {
         this.tamanho = 0;
         this.duracao = 0;
         this.primeiro = null;
         this.ultimo = null;
-        //construtor
     }
     
+    //métodos para edição da playlist
     public void adicionarMusica() {
         
     }

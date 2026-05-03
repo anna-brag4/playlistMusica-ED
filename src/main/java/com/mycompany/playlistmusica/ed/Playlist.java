@@ -1,47 +1,88 @@
 package com.mycompany.playlistmusica.ed;
 
-public class Playlist {
-    
-    // vai funcionar como a lista duplamente encadeada
-    
-    private int tamanho;
-    private int duracao; //segundos
-    private Musica primeiro;
-    private Musica ultimo;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    //getters
-    public int getTamanho() {
-        return tamanho;
+/**
+ * Lista duplamente encadeada de músicas.
+ * Cada nó (No) representa uma música na playlist.
+ */
+public class Playlist 
+{
+
+    public No cabeca;
+    public No cauda;
+    public int tamanho;      
+    private String nome;
+    private int duracaoTotal; // duração acumulada em segundos
+
+    // Construtor
+    public Playlist() 
+    {
+        this.cabeca       = null;
+        this.cauda        = null;
+        this.tamanho      = 0;
+        this.duracaoTotal = 0;
+        this.nome         = "Minha Playlist";
     }
 
-    public int getDuracao() {
-        return duracao;
+    public Playlist(String nome) 
+    {
+        this();
+        this.nome = nome;
     }
 
-    public Musica getPrimeiro() {
-        return primeiro;
+    // Getters
+    public int getTamanho()      { return tamanho; }
+    public int getDuracaoTotal() { return duracaoTotal; }
+    public String getNome()      { return nome; }
+    public No getPrimeiro()      { return cabeca; }
+    public No getUltimo()        { return cauda; }
+
+    /** Adiciona uma música */
+    
+    public No adicionar(String titulo, String artista, String caminhoOuUrl) {
+        No novo = new No(titulo, artista, caminhoOuUrl);
+        if (cauda == null) {
+            cabeca = cauda = novo;
+        } else {
+            novo.anterior = cauda;
+            cauda.proximo = novo;
+            cauda         = novo;
+        }
+        tamanho++;
+        return novo;
     }
 
-    public Musica getUltimo() {
-        return ultimo;
+    /** Adiciona uma música ao final com duração informada. */
+    public No adicionar(String titulo, String artista, String caminhoOuUrl, int duracao) 
+    {
+        No novo = adicionar(titulo, artista, caminhoOuUrl);
+        novo.setDuracao(duracao);
+        duracaoTotal += duracao;
+        return novo;
     }
-    
-    //construtor
-    public Playlist() {
-        this.tamanho = 0;
-        this.duracao = 0;
-        this.primeiro = null;
-        this.ultimo = null;
+
+  
+    // Remoção
+    /** Remove um nó da lista. */
+    public void remover(No no) {
+        if (no == null) return;
+
+        if (no.anterior != null) no.anterior.proximo = no.proximo;
+        else                     cabeca               = no.proximo;
+
+        if (no.proximo != null) no.proximo.anterior = no.anterior;
+        else                    cauda                = no.anterior;
+
+        duracaoTotal -= no.getDuracao();
+        no.anterior   = null;
+        no.proximo    = null;
+        tamanho--;
     }
-    
-    //métodos para edição da playlist
-    public void adicionarMusica() {
-        
-    }
-    
-    public void removerMusica() {
-        
-    }
+
+
     
     public void embaralharPlaylist() {
         

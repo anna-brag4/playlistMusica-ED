@@ -14,38 +14,24 @@ public class Playlist {
         return tamanho;
     }
 
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
-    }
-
     public int getDuracao() {
         return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
     }
 
     public Musica getPrimeiro() {
         return primeiro;
     }
 
-    public void setPrimeiro(Musica primeiro) {
-        this.primeiro = primeiro;
-    }
-
     public Musica getUltimo() {
         return ultimo;
-    }
-
-    public void setUltimo(Musica ultimo) {
-        this.ultimo = ultimo;
     }
     
     //Outros métodos
     public Playlist() {
         this.tamanho = 0;
         this.duracao = 0;
+        this.primeiro = null;
+        this.ultimo = null;
         //construtor
     }
     

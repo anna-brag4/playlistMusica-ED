@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Lista duplamente encadeada de músicas.
- * Cada nó (No) representa uma música na playlist.
+ * Cada nó  representa uma música na playlist.
  */
 public class Playlist 
 {

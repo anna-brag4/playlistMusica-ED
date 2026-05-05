@@ -8,54 +8,60 @@ import java.util.List;
  * Lista duplamente encadeada de músicas.
  * Cada nó  representa uma música na playlist.
  */
-
-public class Playlist 
-{
-
-    public No cabeca;
-    public No cauda;
-    public int tamanho;      
+public class Playlist {
+  
+    private No cabeca; //primeiro nó
+    private No cauda;  //ultimo nó
+    private int tamanho;      
     private String nome;
     private int duracaoTotal; // duração acumulada em segundos
 
     // Construtor
-    public Playlist() 
-    {
-        this.cabeca       = null;
-        this.cauda        = null;
-        this.tamanho      = 0;
+    public Playlist() {
+        this.cabeca = null;
+        this.cauda = null;
+        this.tamanho = 0;
         this.duracaoTotal = 0;
-        this.nome         = "Minha Playlist";
-    }
-
-    public Playlist(String nome) 
-    {
-        this();
-        this.nome = nome;
+        this.nome = "Minha Playlist";
     }
 
     // Getters
-    public int getTamanho()      { return tamanho; }
-    public int getDuracaoTotal() { return duracaoTotal; }
-    public String getNome()      { return nome; }
-    public No getPrimeiro()      { return cabeca; }
-    public No getUltimo()        { return cauda; }
+    public No getCabeca() {
+        return cabeca;
+    }
+
+    public No getCauda() {
+        return cauda;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getDuracaoTotal() {
+        return duracaoTotal;
+    }
 
     //Adiciona uma música
-    
-    public No adicionar(String titulo, String artista, String caminhoOuUrl) {
-        No novo = new No(titulo, artista, caminhoOuUrl);
-        if (cauda == null) {
-            cabeca = cauda = novo;
+    public No adicionar(String titulo, String artista, String caminhoOuUrl, int duracao) {
+        No novo = new No(titulo, artista, caminhoOuUrl, duracao);
+        if (this.cauda == null) {
+            this.cabeca = this.cauda = novo;
         } else {
-            novo.anterior = cauda;
-            cauda.proximo = novo;
-            cauda         = novo;
+            novo.setAnterior(cauda);
+            this.cauda.setProximo(novo);
+            this.cauda = novo;
         }
-        tamanho++;
+        duracaoTotal += duracao;
+        this.tamanho++;
         return novo;
     }
 
+    /* Sem necessidade, se vai informar a duração toral todas as músicas precisam ter uma duração
     //Adiciona uma música ao final com duração informada
     public No adicionar(String titulo, String artista, String caminhoOuUrl, int duracao) 
     {
@@ -64,22 +70,36 @@ public class Playlist
         duracaoTotal += duracao;
         return novo;
     }
-
+    */
   
     // Remove um nó da lista. 
-    public void remover(No no) {
-        if (no == null) return;
+    // Mudança de No no -> No atual
+    public String remover(No atual) {
+        if (atual == null) {
+            return "Música não encontrada, remoção incompleta :(";
+        } else {
+            String nomeMusica = atual.getTitulo();
+            this.duracaoTotal -= atual.getDuracao();
+            
+            if (atual.getAnterior() != null) {
+                atual.getAnterior().setProximo(atual.getProximo());
+            } else {
+                this.cabeca = atual.getProximo();
+            }
 
-        if (no.anterior != null) no.anterior.proximo = no.proximo;
-        else                     cabeca               = no.proximo;
-
-        if (no.proximo != null) no.proximo.anterior = no.anterior;
-        else                    cauda                = no.anterior;
-
-        duracaoTotal -= no.getDuracao();
-        no.anterior   = null;
-        no.proximo    = null;
-        tamanho--;
+            if (atual.getProximo() != null) {
+                atual.getProximo().setAnterior(atual.getAnterior());
+            } else {
+                this.cauda = atual.getAnterior();
+            }
+            
+            atual.setAnterior(null);
+            atual.setProximo(null);
+            tamanho--;
+            
+            return String.format("Música %s removida com sucesso :)", nomeMusica);
+            
+        }
     }
 
 
@@ -96,8 +116,25 @@ public class Playlist
         
     }
     
-    public void formatarDuracao(){
+    public String formatarDuracao(No musica){
+        int totalSegundos = musica.getDuracao();
+        int segundos = totalSegundos % 60;
+        int minutos = (totalSegundos % 3600) / 60;
+        int horas = totalSegundos / 3600;
+        
+        if (horas == 0 && minutos == 0) {
+            return String.format("%dseg", segundos);
+        } else if (horas == 0) {
+            return String.format("%dmin %dseg", minutos, segundos);
+        } else {
+            return String.format("%dh %dmin %dseg", horas, minutos, segundos);
+        }
         
     }
-    
+
+    public void corrigirNomePlaylist() {
+        
+    }
+
 }
+   

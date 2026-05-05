@@ -26,6 +26,7 @@ public class No {
         this.proximo      = null;
         this.anterior     = null;
     }
+    
     // Construtor 2
   
     public No(String titulo, String artista, String caminhoOuUrl, int duracao) {
@@ -70,4 +71,18 @@ public class No {
         int seg = duracao % 60;
         return String.format("%d:%02d", min, seg);
     }
+    
+    //métodos de correção
+    public void corrigirTitulo() {
+        
+    }
+    
+    public void corrigirArtista() {
+        
+    }
+    
+    public void corrigirDuracao() {
+        
+    }
+    
 }

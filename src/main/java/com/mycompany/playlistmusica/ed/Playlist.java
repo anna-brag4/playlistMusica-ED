@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
+/*
  * Lista duplamente encadeada de músicas.
  * Cada nó  representa uma música na playlist.
  */
+
 public class Playlist 
 {
 
@@ -40,7 +41,7 @@ public class Playlist
     public No getPrimeiro()      { return cabeca; }
     public No getUltimo()        { return cauda; }
 
-    /** Adiciona uma música */
+    //Adiciona uma música
     
     public No adicionar(String titulo, String artista, String caminhoOuUrl) {
         No novo = new No(titulo, artista, caminhoOuUrl);
@@ -55,7 +56,7 @@ public class Playlist
         return novo;
     }
 
-    /** Adiciona uma música ao final com duração informada. */
+    //Adiciona uma música ao final com duração informada
     public No adicionar(String titulo, String artista, String caminhoOuUrl, int duracao) 
     {
         No novo = adicionar(titulo, artista, caminhoOuUrl);
@@ -65,8 +66,7 @@ public class Playlist
     }
 
   
-    // Remoção
-    /** Remove um nó da lista. */
+    // Remove um nó da lista. 
     public void remover(No no) {
         if (no == null) return;
 

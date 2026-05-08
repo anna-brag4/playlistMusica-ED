@@ -3,6 +3,7 @@ package com.mycompany.playlistmusica.ed;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /*
  * Lista duplamente encadeada de músicas.
@@ -74,6 +75,19 @@ public class Playlist {
   
     // Remove um nó da lista. 
     // Mudança de No no -> No atual
+    
+    public No buscarTitulo(String tituloMusica) {
+        No atual = this.cabeca;
+        while(atual != null) {
+            if(atual.getTitulo().equalsIgnoreCase(tituloMusica)) {
+                return atual;
+            } else {
+                atual = atual.getProximo();
+            }
+        }
+        return null;
+    }
+    
     public String remover(No atual) {
         if (atual == null) {
             return "Música não encontrada, remoção incompleta :(";
@@ -101,8 +115,8 @@ public class Playlist {
             
         }
     }
-
-
+    
+    //basta utilizar remover(buscarTitulo("Exemplo")
     
     public void embaralharPlaylist() {
         
@@ -132,8 +146,13 @@ public class Playlist {
         
     }
 
-    public void corrigirNomePlaylist() {
-        
+    public String corrigirNomePlaylist(String nomeNovo) {
+        if (nomeNovo == null || nomeNovo.isEmpty()) {
+            return "Nome inválido!";
+        } else {
+            this.nome = nomeNovo;
+            return "Alteração concluida :)";
+        }
     }
 
 }

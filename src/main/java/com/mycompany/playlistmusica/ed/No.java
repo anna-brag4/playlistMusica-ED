@@ -95,16 +95,31 @@ public class No {
     }
     
     //métodos de correção
-    public void corrigirTitulo() {
-        
+    public String corrigirTitulo(String tituloNovo) {
+        if (tituloNovo == null || tituloNovo.isEmpty()) {
+            return "Titulo inválido!";
+        } else {
+            this.titulo = tituloNovo;
+            return "Alteração concluida :)";
+        }
     }
     
-    public void corrigirArtista() {
-        
+    public String corrigirArtista(String artistaNovo) {
+        if (artistaNovo == null || artistaNovo.isEmpty()) {
+            return "Artista inválido!";
+        } else {
+            this.artista = artistaNovo;
+            return "Alteração concluida :)";
+        }
     }
     
-    public void corrigirDuracao() {
-        
+    public String corrigirDuracao(int duracaoNova) {
+        if (duracaoNova <= 0) {
+            return "Duração inválida!";
+        } else {
+            this.duracao = duracaoNova;
+            return "Alteração concluida :)";
+        }
     }
     
 }

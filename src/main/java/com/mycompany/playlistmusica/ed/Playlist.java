@@ -119,15 +119,90 @@ public class Playlist {
     //basta utilizar remover(buscarTitulo("Exemplo")
     
     public void embaralharPlaylist() {
-        
-    }
-    
+
+        if (cabeca == null || cabeca.getProximo() == null) {
+            return;
+        }
+
+        ArrayList<No> musicas = new ArrayList<>();
+
+        No atual = cabeca;
+
+        while (atual != null) {
+            musicas.add(atual);
+            atual = atual.getProximo();
+        }
+
+        Collections.shuffle(musicas);
+
+        reconstruirPlaylist(musicas);
+}
+
     public void ordenarTitulo(){
-        
+
+        if (cabeca == null || cabeca.getProximo() == null) {
+            return;
+        }
+
+        ArrayList<No> musicas = new ArrayList<>();
+
+        No atual = cabeca;
+
+        while (atual != null) {
+            musicas.add(atual);
+            atual = atual.getProximo();
+        }
+
+        musicas.sort((a, b) ->
+            a.getTitulo().compareToIgnoreCase(b.getTitulo())
+        );  
+
+        reconstruirPlaylist(musicas);
     }
-    
+
     public void ordenarArtista() {
-        
+
+        if (cabeca == null || cabeca.getProximo() == null) {
+            return;
+        }
+
+        ArrayList<No> musicas = new ArrayList<>();
+
+        No atual = cabeca;
+
+        while (atual != null) {
+            musicas.add(atual);
+            atual = atual.getProximo();
+        }
+
+        musicas.sort((a, b) ->
+            a.getArtista().compareToIgnoreCase(b.getArtista())
+        );
+
+        reconstruirPlaylist(musicas);
+    }
+
+    private void reconstruirPlaylist(ArrayList<No> musicas) {
+
+        cabeca = musicas.get(0);
+        cauda = musicas.get(musicas.size() - 1);
+
+        for (int i = 0; i < musicas.size(); i++) {
+
+            No anterior = null;
+            No proximo = null;
+
+            if (i > 0) {
+                anterior = musicas.get(i - 1);
+            }
+
+            if (i < musicas.size() - 1) {
+                proximo = musicas.get(i + 1);
+            }
+
+            musicas.get(i).setAnterior(anterior);
+            musicas.get(i).setProximo(proximo);
+        }
     }
     
     public String formatarDuracao(No musica){

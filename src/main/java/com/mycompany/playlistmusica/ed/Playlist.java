@@ -23,7 +23,7 @@ public class Playlist {
         this.cauda = null;
         this.tamanho = 0;
         this.duracaoTotal = 0;
-        this.nome = "Minha Playlist";
+        this.nome = "Minha Playlist";      
     }
 
     // Getters
@@ -116,6 +116,32 @@ public class Playlist {
         }
     }
     
+    // Tocar próxima/anterior
+
+    public No proximaMusica(No atual) {
+        No proximo = atual.getProximo();
+        if (atual != null && proximo != null) {
+            atual= atual.getProximo(); // mover o ponteiro 
+        } else if (atual != null && proximo == null){
+            atual = this.cabeca; // chegou na última, volta para a primeira   
+        } else {
+            return null; // não ter nenhuma música
+        }
+        return atual;    // vai retornar o nó atual
+    }
+
+    public No musicaAnterior(No atual) {
+        No anterior = atual.getAnterior();
+        if (atual != null && anterior!= null) {
+            atual= atual.getAnterior(); //mover o ponteiro, se tem anterior, volta
+        } else if (atual != null && anterior == null){
+            atual = this.cabeca; //está na primeira, volta ao inicio da primeira
+        } else {
+            return null; // não ter nenhuma música
+        }
+        return atual;    // vai retornar o nó atual
+    }
+          
     //basta utilizar remover(buscarTitulo("Exemplo")
     
     public void embaralharPlaylist() {

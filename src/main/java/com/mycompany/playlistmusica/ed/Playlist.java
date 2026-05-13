@@ -187,7 +187,7 @@ public class Playlist {
 
     public void ordenarTitulo(){
 
-        if (cabeca == null || cabeca.getProximo() == null) {
+        /*if (cabeca == null || cabeca.getProximo() == null) {
             return;
         }
 
@@ -205,10 +205,11 @@ public class Playlist {
         );  
 
         reconstruirPlaylist(musicas);
+        */
     }
 
     public void ordenarArtista() {
-
+        /*
         if (cabeca == null || cabeca.getProximo() == null) {
             return;
         }
@@ -227,6 +228,7 @@ public class Playlist {
         );
 
         reconstruirPlaylist(musicas);
+        */
     }
 
     public String formatarDuracao(No musica){

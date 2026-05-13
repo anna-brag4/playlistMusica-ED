@@ -1,6 +1,5 @@
 package com.mycompany.playlistmusica.ed;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /*
@@ -185,50 +184,38 @@ public class Playlist {
         reconstruirPlaylist(lista);
     }
 
-    public void ordenarTitulo(){
+    public void ordenarTitulo() {
+        No[] lista = criarLista();
 
-        /*if (cabeca == null || cabeca.getProximo() == null) {
-            return;
+        for (int i = 0; i < this.tamanho - 1; i++) {
+            for (int j = 0; j < this.tamanho - 1 - i; j++) {
+
+                if (lista[j].getTitulo().compareToIgnoreCase(lista[j + 1].getTitulo()) > 0) {
+                    No salvo = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = salvo;
+                }
+            }
         }
 
-        ArrayList<No> musicas = new ArrayList<>();
-
-        No atual = cabeca;
-
-        while (atual != null) {
-            musicas.add(atual);
-            atual = atual.getProximo();
-        }
-
-        musicas.sort((a, b) ->
-            a.getTitulo().compareToIgnoreCase(b.getTitulo())
-        );  
-
-        reconstruirPlaylist(musicas);
-        */
+        reconstruirPlaylist(lista);
     }
 
     public void ordenarArtista() {
-        /*
-        if (cabeca == null || cabeca.getProximo() == null) {
-            return;
+        No[] lista = criarLista();
+
+        for (int i = 0; i < this.tamanho - 1; i++) {
+            for (int j = 0; j < this.tamanho - 1 - i; j++) {
+
+                if (lista[j].getArtista().compareToIgnoreCase(lista[j + 1].getArtista()) > 0) {
+                    No salvo = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = salvo;
+                }
+            }
         }
 
-        ArrayList<No> musicas = new ArrayList<>();
-
-        No atual = cabeca;
-
-        while (atual != null) {
-            musicas.add(atual);
-            atual = atual.getProximo();
-        }
-
-        musicas.sort((a, b) ->
-            a.getArtista().compareToIgnoreCase(b.getArtista())
-        );
-
-        reconstruirPlaylist(musicas);
-        */
+        reconstruirPlaylist(lista);
     }
 
     public String formatarDuracao(No musica){

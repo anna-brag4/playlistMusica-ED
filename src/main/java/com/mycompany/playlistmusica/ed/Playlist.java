@@ -185,39 +185,60 @@ public class Playlist {
     }
 
     public void ordenarTitulo() {
+
         No[] lista = criarLista();
 
-        for (int i = 0; i < this.tamanho - 1; i++) {
-            for (int j = 0; j < this.tamanho - 1 - i; j++) {
+        for (int i = 1; i < this.tamanho; i++) {
 
-                if (lista[j].getTitulo().compareToIgnoreCase(lista[j + 1].getTitulo()) > 0) {
-                    No salvo = lista[j];
-                    lista[j] = lista[j + 1];
-                    lista[j + 1] = salvo;
-                }
+            No chave = lista[i];
+
+            int j = i - 1;
+            while (
+                j >= 0 &&
+                lista[j].getTitulo().compareToIgnoreCase(
+                    chave.getTitulo()
+                ) > 0
+            ) {
+
+                lista[j + 1] = lista[j];
+
+                j--;
             }
-        }
 
+            lista[j + 1] = chave;
+        }
+        
         reconstruirPlaylist(lista);
     }
 
     public void ordenarArtista() {
+
         No[] lista = criarLista();
 
-        for (int i = 0; i < this.tamanho - 1; i++) {
-            for (int j = 0; j < this.tamanho - 1 - i; j++) {
+        for (int i = 1; i < this.tamanho; i++) {
 
-                if (lista[j].getArtista().compareToIgnoreCase(lista[j + 1].getArtista()) > 0) {
-                    No salvo = lista[j];
-                    lista[j] = lista[j + 1];
-                    lista[j + 1] = salvo;
-                }
+            No chave = lista[i];
+
+            int j = i - 1;
+
+            while (
+                j >= 0 &&
+                lista[j].getArtista().compareToIgnoreCase(
+                    chave.getArtista()
+                ) > 0
+            ) {
+
+                lista[j + 1] = lista[j];
+
+                j--;
             }
+
+            lista[j + 1] = chave;
         }
 
         reconstruirPlaylist(lista);
     }
-
+    
     public String formatarDuracao(No musica){
         int totalSegundos = musica.getDuracao();
         int segundos = totalSegundos % 60;

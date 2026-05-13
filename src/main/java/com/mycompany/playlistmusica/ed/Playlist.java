@@ -1,8 +1,6 @@
 package com.mycompany.playlistmusica.ed;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 /*
@@ -16,7 +14,7 @@ public class Playlist {
     private int tamanho;      
     private String nome;
     private int duracaoTotal; // duração acumulada em segundos
-
+    
     // Construtor
     public Playlist() {
         this.cabeca = null;
@@ -120,9 +118,9 @@ public class Playlist {
 
     public No proximaMusica(No atual) {
         No proximo = atual.getProximo();
-        if (atual != null && proximo != null) {
+        if (proximo != null) {
             atual= atual.getProximo(); // mover o ponteiro 
-        } else if (atual != null && proximo == null){
+        } else if (proximo == null){
             atual = this.cabeca; // chegou na última, volta para a primeira   
         } else {
             return null; // não ter nenhuma música
@@ -132,9 +130,9 @@ public class Playlist {
 
     public No musicaAnterior(No atual) {
         No anterior = atual.getAnterior();
-        if (atual != null && anterior!= null) {
+        if (anterior!= null) {
             atual= atual.getAnterior(); //mover o ponteiro, se tem anterior, volta
-        } else if (atual != null && anterior == null){
+        } else if (anterior == null){
             atual = this.cabeca; //está na primeira, volta ao inicio da primeira
         } else {
             return null; // não ter nenhuma música
@@ -143,26 +141,49 @@ public class Playlist {
     }
           
     //basta utilizar remover(buscarTitulo("Exemplo")
+    public No[] criarLista(){
+        No criarLista = this.cabeca;
+        No[] lista = new No[this.tamanho];
+        for(int i=0; i < tamanho; i++) {
+            lista[i] = criarLista;
+            criarLista = criarLista.getProximo();
+        }
+        return lista;
+    }
+    
+    public void reconstruirPlaylist(No[] lista){
+        for(int i=0; i < tamanho; i++) {
+            if(i==0) {
+                this.cabeca = lista[i];
+                this.cauda = lista[i]; 
+            } else {
+                No atual = lista[i];
+                atual.setAnterior(this.cauda);
+                this.cauda.setProximo(atual);
+                this.cauda = atual;
+            }
+        } 
+        this.cauda.setProximo(null);
+        this.cabeca.setAnterior(null);
+    }
     
     public void embaralharPlaylist() {
-
-        if (cabeca == null || cabeca.getProximo() == null) {
-            return;
+        //criação lista de nós
+        No[] lista = criarLista();
+        
+        //nós em posições aleatórias
+        Random aleatorio = new Random();
+        for(int i = this.tamanho-1; i>0; i--) {
+            int numAleatorio = aleatorio.nextInt(i+1);
+            // lista[i] e lista[numAleatorio] trocam de lugar;
+            No salvo = lista[i];
+            lista[i] = lista[numAleatorio];
+            lista[numAleatorio] = salvo;
         }
-
-        ArrayList<No> musicas = new ArrayList<>();
-
-        No atual = cabeca;
-
-        while (atual != null) {
-            musicas.add(atual);
-            atual = atual.getProximo();
-        }
-
-        Collections.shuffle(musicas);
-
-        reconstruirPlaylist(musicas);
-}
+        
+        //nós com ponteiros para o próximo e anterior
+        reconstruirPlaylist(lista);
+    }
 
     public void ordenarTitulo(){
 
@@ -208,29 +229,6 @@ public class Playlist {
         reconstruirPlaylist(musicas);
     }
 
-    private void reconstruirPlaylist(ArrayList<No> musicas) {
-
-        cabeca = musicas.get(0);
-        cauda = musicas.get(musicas.size() - 1);
-
-        for (int i = 0; i < musicas.size(); i++) {
-
-            No anterior = null;
-            No proximo = null;
-
-            if (i > 0) {
-                anterior = musicas.get(i - 1);
-            }
-
-            if (i < musicas.size() - 1) {
-                proximo = musicas.get(i + 1);
-            }
-
-            musicas.get(i).setAnterior(anterior);
-            musicas.get(i).setProximo(proximo);
-        }
-    }
-    
     public String formatarDuracao(No musica){
         int totalSegundos = musica.getDuracao();
         int segundos = totalSegundos % 60;

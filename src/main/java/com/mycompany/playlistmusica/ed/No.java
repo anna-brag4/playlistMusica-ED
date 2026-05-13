@@ -113,13 +113,4 @@ public class No {
         }
     }
     
-    public String corrigirDuracao(int duracaoNova) {
-        if (duracaoNova <= 0) {
-            return "Duração inválida!";
-        } else {
-            this.duracao = duracaoNova;
-            return "Alteração concluida :)";
-        }
-    }
-    
 }
